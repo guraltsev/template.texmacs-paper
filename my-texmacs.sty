@@ -1,0 +1,34 @@
+% This file contains macros usually used by TeXmacs
+
+\newcommand{\assign}{\eqd}
+\newcommand{\of}{\colon}
+\newcommand{\infixor}{\text{ or }}
+\newcommand{\infixand}{\text{ and }}
+\newcommand{\mathd}{\dd}
+
+\newcommand{\nobracket}{.}
+\newcommand{\suchthat}{\st}
+\newcommand{\cdummy}{\cdot}
+\newcommand{\tmnote}[1]{\thanks{\textit{Note:} #1}}
+\newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
+\newcommand{\tmrsub}[1]{\ensuremath{_{\textrm{#1}}}}
+\newcommand{\tmem}[1]{{\em #1\/}}
+\newcommand{\tmstrong}[1]{\textbf{#1}}
+\newcommand{\tmscript}[1]{\text{\scriptsize{$#1$}}}
+\newcommand{\tmtextbf}[1]{\text{{\bfseries{#1}}}}
+\newcommand{\tmtextit}[1]{\text{{\itshape{#1}}}}
+
+%% Use the <tmtodo> tag instead of the <todo> tag not to conflict with
+%% the \todo macro of the package todonotes
+%% TODO: implement a better conversion between the two!
+\newcommand{\tmtodo}[1]{{\color{red!75!black}[To do: #1]}}
+
+% The <framed> tag
+\usepackage[tikz]{mdframed}
+\mdfsetup{linecolor=black,linewidth=0.5pt,skipabove=0.5em,skipbelow=0.5em,hidealllines=true,innerleftmargin=0pt,innerrightmargin=0pt,innertopmargin=0pt,innerbottommargin=0pt}
+\newmdenv[hidealllines=false,innertopmargin=1ex,innerbottommargin=1ex,innerleftmargin=1ex,innerrightmargin=1ex]{tmframed}
+
+% Texmacs named proof environment
+\expandafter\let\expandafter\oldproof\csname\string\proof\endcsname
+\let\oldendproof\endproof
+\newenvironment{proof*}[1]{\oldproof[#1]}{\oldendproof}
