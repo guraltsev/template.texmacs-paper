@@ -1,0 +1,104 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto eol=lf
+
+
+*.tex text diff=tex eol=lf
+*.tex filter=sentencebreak
+
+*.lyx text diff=tex eol=lf
+*.tm text eol=lf
+
+
+*.bib text eol=lf
+*.bibtex text eol=lf
+
+*.org text eol=lf
+
+
+*.txt		text eol=lf
+
+*.mustache 	text eol=lf
+
+# Special files
+AUTHORS         text eol=lf
+CHANGELOG       text eol=lf
+CHANGES         text eol=lf
+CONTRIBUTING    text eol=lf
+COPYING         text eol=lf
+copyright       text eol=lf
+*COPYRIGHT*     text eol=lf
+INSTALL         text eol=lf
+license         text eol=lf
+LICENSE         text eol=lf
+NEWS            text eol=lf
+readme          text eol=lf
+*README*        text eol=lf
+TODO            text eol=lf
+
+
+# Markdown
+
+*.md		text eol=lf diff=markdown
+*.markdown      text eol=lf diff=markdown
+*.md            text eol=lf diff=markdown
+*.mdwn          text eol=lf diff=markdown
+*.mdown         text eol=lf diff=markdown
+*.mkd           text eol=lf diff=markdown
+*.mkdn          text eol=lf diff=markdown
+
+# Configs
+*.cnf             text eol=lf
+*.conf            text eol=lf
+*.config          text eol=lf
+.editorconfig     text eol=lf
+.env              text eol=lf
+.gitattributes    text eol=lf
+.gitconfig        text eol=lf
+.htaccess         text eol=lf
+
+
+
+# Serialisation
+*.json     text eol=lf
+*.toml     text eol=lf
+*.xml      text eol=lf
+*.yaml     text eol=lf
+*.yml      text eol=lf
+*.csv      text eol=lf
+*.tab      text eol=lf
+*.tsv      text eol=lf
+
+# Web
+*.ini             text eol=lf
+*.js              text eol=lf
+*.htm             text eol=lf diff=html
+*.html            text eol=lf diff=html
+*.coffee          text eol=lf
+*.css             text eol=lf diff=css
+*.php             text eol=lf diff=php
+*.xml             text eol=lf
+*.xhtml           text eol=lf diff=html
+
+
+
+
+
+
+# Scripts
+*.bash     text eol=lf
+*.fish     text eol=lf
+*.sh       text eol=lf
+# These are explicitly windows files and should use crlf
+*.bat      text eol=crlf
+*.cmd      text eol=crlf
+*.ps1      text eol=crlf
+
+# Graphics
+*.{png,jpg,jpeg,gif,tif,tiff,ico,webp,woff,woff2} binary
+*.{eps,pdf} binary
+*.svg      text
+*.xopp binary 
+
+# Archives
+*.{zip,gzip,gz,rar,arj,ace,7z,tar,tgz} binary
+
