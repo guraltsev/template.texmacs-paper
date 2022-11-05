@@ -1,0 +1,211 @@
+%% * Input
+\usepackage[utf8]{inputenc}
+
+%% This is a workaround for the autonum package. See [[Autonum]] below.
+%% The package autonum can often create problems
+%% Use \autonumfalse after to disable it
+\newif\ifautonum
+%% Uncomment \autonumtrue or \autonum flase depending on whether you
+%% like to enable the package
+
+% \autonumtrue
+\autonumfalse
+
+
+%% disable autonum when generating html from latex code. 
+\ifx\HCode\undefined
+\else
+\autonumfalse
+\fi
+
+%% disable autonum if in preview mode, since they conflict
+%% Make sure your LaTeX call defines the macro
+%% \previewisactive when calling LaTeX in preview mode
+%% e.g. by adding the following command to the LaTeX invocation
+%%     \def\previewisactive{true}
+%% You should see the line below informing you whether the compiler caught
+%% that you are in preview mode
+\ifdefined\previewisactive
+\message{***We ARE running in preview mode***}
+\else
+\message{***We are NOT running in preview mode***}
+\fi
+%% Disabling autonum if preview is active
+\ifdefined\previewisactive
+\autonumfalse
+\fi
+
+%% * Modern LaTeX functionality
+%% The package xparse https://ctan.org/pkg/xparse
+%% provides clearer alternatives to \newcommand
+%% use:
+%% \NewDocumentCommand
+%% \RenewDocumentCommand
+%% \ProvideDocumentCommand
+%% \DeclareDocumentCommand
+\usepackage{xparse}
+
+%% * References and hyperlinks
+%% **  PDF hyperlinks, with coloured links
+\usepackage[bookmarks,colorlinks,breaklinks,hypertexnames=false]{hyperref}
+\hypersetup{linkcolor=blue,citecolor=blue,filecolor=blue,urlcolor=blue}
+%% ** Clever reference management
+\usepackage{cleveref}
+
+%% * Bibliography
+%% BibLaTeX  conflicts with etoolbox that is used by autonum.
+%% If autonum is enabled we use this workaround:
+%% it will make biblatex complain but not actually give an error
+\ifautonum
+\usepackage{etoolbox}
+\cslet{blx@noerroretextools}\empty
+\fi
+%% enable BibLaTeX
+\usepackage[citestyle=alphabetic,bibstyle=alphabetic,maxalphanames=5,backend=bibtex]{biblatex}
+
+%% * Graphics and Tikz
+\usepackage{pgf,tikz,pgfplots}
+\usetikzlibrary{patterns,calc}
+
+\usepackage{float,}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+
+%% * Misc Packages
+%% ** Fancy enumeration
+\usepackage{enumerate}
+
+%% * Math setup
+%% ** AMS packages
+\usepackage{amsmath,amsthm,amstext,amssymb,amsfonts,mathtools}
+%% ** Integral signs
+\usepackage{esint}
+%% ** Font Packages
+\usepackage{mathrsfs}
+%% ** Boldface math
+%% Gives characteristic function without making the letters look bad
+\usepackage{bbm} 
+\usepackage{bm}
+
+%% ** other equations array environments
+\usepackage{array}
+%% This next one is the only one currently compatible with TeXmacs:
+%% Only one column, top left aligned
+\NewDocumentEnvironment { ltae } {b } {
+  \begin{array}[t]{*{50}{>{\displaystyle}l}}
+    #1  
+  \end{array}
+}{}
+%% TODO: Define more variants
+%% TODO: Provide examples
+  
+
+  
+
+%% * Draft markup utilities
+
+%% ** TODO Notes
+%% To disable todonotes include the option "final" in the document class
+\usepackage[obeyFinal]{todonotes}
+%% You can define per-author macros
+%% comments by author with initial I can be defined as below
+% \providecommand{\todoI}[1]{\todo[color=red!40]{#1}} 
+%% If you want to also include the author's name do 
+% \providecommand{\todoI}[1]{\todo[color=red!40, autor=AuthorName]{#1}} 
+
+%% ** Reference debugging
+%% To show label keys uncomment the line below
+% \usepackage{showkeys}
+
+%% * Automatic reference labeling
+%% ** Autonum
+%% The autonum package https://ctan.org/pkg/autonum?lang=en numbers all
+%% and only the referenced equations (so even if you label an equation
+%% but do not reference it then the number appears only if
+%% referenced). So there is no worry about deciding whether to number
+%% an equaton or not.
+\ifautonum
+\usepackage{autonum}
+%% From https://tex.stackexchange.com/questions/304046/redefine-align-to-do-the-same-thing-as-align-for-use-with-autonum-package
+\makeatletter
+\newcommand{\restore@Environment}[1]{%
+  \AtBeginDocument{%
+    \csletcs{#1*}{#1}%
+    \csletcs{end#1*}{end#1}%
+  }%
+}
+\forcsvlist\restore@Environment{alignat,equation,gather,multline,flalign,align}
+\makeatother
+\fi
+
+
+%% * Theroem Environments
+
+%% Define the macro clearnewtheorem that allows clearing previous
+%% theroem defintions.
+%% Useful to redefine environments already previously defined
+\makeatletter
+\def\cleartheorem#1{%
+    \expandafter\let\csname#1\endcsname\relax
+    \expandafter\let\csname c@#1\endcsname\relax
+}
+\makeatother
+
+%% the cleartheorem macro before the definition effectively forces the "redefinition" of the environment
+\cleartheorem{theorem}
+\newtheorem{theorem}{Theorem}
+\cleartheorem{lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+\cleartheorem{definition}
+\newtheorem{definition}[theorem]{Definition}
+\cleartheorem{corollary}
+\newtheorem{corollary}[theorem]{Corollary}
+\cleartheorem{proposition}
+\newtheorem{proposition}[theorem]{Proposition}
+\cleartheorem{conjecture}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\cleartheorem{theorem*}
+\newtheorem{theorem*}{Theorem}
+\cleartheorem{lemma*}
+\newtheorem{lemma*}{Lemma}
+\cleartheorem{definition*}
+\newtheorem{definition*}{Definition}
+\cleartheorem{corollary*}
+\newtheorem{corollary*}{Corollary}
+\cleartheorem{proposition*}
+\newtheorem{proposition*}{Proposition}
+\cleartheorem{conjecture*}
+\newtheorem{conjecture*}{Conjecture}
+
+\cleartheorem{answer}
+{\theoremstyle{remark}\newtheorem{answer}[theorem]{Answer}}
+\cleartheorem{exercise}
+{\theoremstyle{remark}\newtheorem{exercise}[theorem]{Exercise}}
+\cleartheorem{problem}
+{\theoremstyle{remark}\newtheorem{problem}[theorem]{Problem}}
+\cleartheorem{question}
+{\theoremstyle{remark}\newtheorem{question}[theorem]{Question}}
+\cleartheorem{remark}
+{\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}}
+\cleartheorem{solution}
+{\theoremstyle{remark}\newtheorem{solution}[theorem]{Solution}}
+
+\cleartheorem{answer*}
+{\theoremstyle{remark}\newtheorem{answer*}[theorem]{Answer}}
+\cleartheorem{exercise*}
+{\theoremstyle{remark}\newtheorem{exercise*}[theorem]{Exercise}}
+\cleartheorem{problem*}
+{\theoremstyle{remark}\newtheorem{problem*}[theorem]{Problem}}
+\cleartheorem{question*}
+{\theoremstyle{remark}\newtheorem{question*}[theorem]{Question}}
+\cleartheorem{remark*}
+{\theoremstyle{remark}\newtheorem{remark*}[theorem]{Remark}}
+\cleartheorem{solution*}
+{\theoremstyle{remark}\newtheorem{solution*}[theorem]{Solution}}
+
+
+%% ** Numbering of environments
+\numberwithin{equation}{section}
+\numberwithin{theorem}{section}
